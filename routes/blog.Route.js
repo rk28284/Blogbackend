@@ -1,8 +1,9 @@
 const express = require("express");
 const blogsModel = require("../model/blog.Model");
+const { authentication } = require("../middleware/auth.middleware");
 const blogsRouter = express.Router();
 
-blogsRouter.get("/", async (req, res) => {
+blogsRouter.get("/",authentication, async (req, res) => {
   const query = {};
   try {
     const blogs = await blogsModel.find(query);
@@ -12,7 +13,7 @@ blogsRouter.get("/", async (req, res) => {
   }
 });
 
-blogsRouter.post("/", async (req, res) => {
+blogsRouter.post("/",authentication, async (req, res) => {
   const payload = req.body;
   try {
     const blogPost = new blogsModel(payload);
@@ -24,7 +25,7 @@ blogsRouter.post("/", async (req, res) => {
   }
 });
 
-blogsRouter.get("/:id", async (req, res) => {
+blogsRouter.get("/:id",authentication, async (req, res) => {
   try {
     const { id } = req.params;
     const blogs= await blogsModel.findById(id);
@@ -39,7 +40,7 @@ blogsRouter.get("/:id", async (req, res) => {
   }
 });
 
-blogsRouter.patch("/:id", async (req, res) => {
+blogsRouter.patch("/:id",authentication, async (req, res) => {
   const { id } = req.params;
   const payload = req.body;
   try {
@@ -58,7 +59,7 @@ blogsRouter.patch("/:id", async (req, res) => {
   }
 });
 
-blogsRouter.delete("/:id", async (req, res) => {
+blogsRouter.delete("/:id",authentication, async (req, res) => {
   const { id } = req.params;
   try {
     const blogs = await blogsModel.findById(id);
@@ -77,7 +78,7 @@ blogsRouter.delete("/:id", async (req, res) => {
 });
 
 //filter-/api/blogs?category=tech
-blogsRouter.get("/", async (req, res) => {
+blogsRouter.get("/",authentication, async (req, res) => {
     try {
       const category = req.query.category; 
       const query = category ? { category } : {};
@@ -90,7 +91,7 @@ blogsRouter.get("/", async (req, res) => {
     }
   });
   
-blogsRouter.get("/",async(req,res)=>{
+blogsRouter.get("/",authentication,async(req,res)=>{
     try {
         const search=req.query.title;
 
