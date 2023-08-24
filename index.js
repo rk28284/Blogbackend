@@ -3,7 +3,6 @@ const connection=require("./configs/db")
 const {userRouter}=require("./routes/user.Route")
 const {blogsRouter}=require("./routes/blog.Route")
 
-
 require("dotenv").config()
 const cors=require("cors")
 const app=express()

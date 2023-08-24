@@ -27,6 +27,7 @@ userRouter.post("/register", async (req, res) => {
           });
           
           await user.save();
+          res.json(user)
         }
       });
     } catch (error) {
